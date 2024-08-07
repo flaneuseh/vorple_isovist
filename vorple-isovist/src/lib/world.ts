@@ -20,6 +20,10 @@ export class Point {
     static distanceBetweenPoints(p, q) {
         return Math.sqrt((p.x - q.x) ** 2 + (p.y - q.y) ** 2)
     }
+
+    static add(p, q) {
+        return new Point(p.x + q.x, p.y + q.y)
+    }
 }
 
 export function lineIntersection(
@@ -236,23 +240,20 @@ export function segmentInFrontOf(segmentA/*: Segment*/, segmentB/*: Segment*/, p
 }
 
 export class Shape {
-    /*private */_segments/*: Segment[]*/ = [];
-    /*private */_points/*: EndPoint[]*/ = [];
+    _coordinates = [];
+    _shape = [];
+    _points = [];
+    _segments = [];
+    height = 0;
 
     constructor(
-        points/*: Point[]*/,
+        coordinates,
+        shape,
         height = 0
     ) {
+        this._shape = shape
         this.height = height
-        points.forEach((p, i) => {
-            let j = i + 1;
-            if (j >= points.length) {
-                return;
-            }
-            let segment = new Segment(p, points[j], this);
-            this._segments.push(segment);
-            this._points.push(segment.p1, segment.p2);
-        })
+        this.setCoordinates(coordinates);
     }
 
     toString() {
@@ -276,6 +277,10 @@ export class Shape {
 
     get segments()/*: Segment[]*/ {
         return this._segments;
+    }
+
+    get coordinates() {
+        return this._coordinates;
     }
 
     // based on https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
@@ -317,6 +322,27 @@ export class Shape {
             }
         }
         return minDistance;
+    }
+
+    setCoordinates(coordinates) {
+        this._coordinates = coordinates;
+        this._points = [];
+        this._segments = [];
+        if (this._coordinates == []) {
+            return;
+        }
+        this._shape.forEach((currShapePoint, i) => {
+            let j = i + 1;
+            if (j >= this._shape.length) {
+                return;
+            }
+            let nextShapePoint = this._shape[j]
+            let point = Point.add(this._coordinates, currShapePoint);
+            let nextPoint = Point.add(this._coordinates, nextShapePoint);
+            let segment = new Segment(point, nextPoint, this);
+            this._segments.push(segment);
+            this._points.push(segment.p1, segment.p2);
+        })
     }
 }
 
@@ -616,20 +642,33 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Ha-ha",
                     "coordinates": [0, 400],
-                    "shape": [
-                        [0, 500],
-                        [100, 500],
-                        [100, 400],
-                        [0, 400],
-                        [0, 500]
-                    ],
                     "height": -10,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
+                    // "shape": [
+                    //     [0, 500],
+                    //     [100, 500],
+                    //     [100, 400],
+                    //     [0, 400],
+                    //     [0, 500]
+                    // ],
                 },
                 {
                     "name": "Sheep Field",
                     "coordinates": [0, 500],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [0, 600],
                     //     [100, 600],
@@ -641,8 +680,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "black sheep",
                     "coordinates": [70, 550],
-                    "dimensions": [10, 20],
                     "height": 4,
+                    "shape": [
+                        [0, 0],
+                        [0, 20],
+                        [10, 20],
+                        [10, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [70, 570],
                     //     [80, 570],
@@ -654,8 +699,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Gravel Circle",
                     "coordinates": [0, 300],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [0, 400],
                     //     [100, 400],
@@ -667,8 +718,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "half-size Bentley",
                     "coordinates": [70, 350],
-                    "dimensions": [10, 20],
                     "height": 3,
+                    "shape": [
+                        [0, 0],
+                        [0, 20],
+                        [10, 20],
+                        [10, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [70, 370],
                     //     [80, 370],
@@ -680,8 +737,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "The Upper Terrace",
                     "coordinates": [100, 300],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [100, 400],
                     //     [200, 400],
@@ -693,8 +756,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "The Obelisk",
                     "coordinates": [140, 340],
-                    "dimensions": [20, 20],
                     "height": 50,
+                    "shape": [
+                        [0, 0],
+                        [0, 20],
+                        [20, 20],
+                        [20, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [140, 360],
                     //     [160, 360],
@@ -706,8 +775,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Croquet Ground",
                     "coordinates": [0, 200],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [0, 300],
                     //     [100, 300],
@@ -719,8 +794,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "stone bench",
                     "coordinates": [10, 280],
-                    "dimensions": [20, 10],
                     "height": 3,
+                    "shape": [
+                        [0, 0],
+                        [0, 10],
+                        [20, 10],
+                        [20, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [10, 290],
                     //     [30, 290],
@@ -732,8 +813,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "The Middle Terrace",
                     "coordinates": [100, 200],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [100, 300],
                     //     [200, 300],
@@ -745,8 +832,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Lily Pond",
                     "coordinates": [120, 250],
-                    "dimensions": [40, 20],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 20],
+                        [40, 20],
+                        [40, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [120, 270],
                     //     [160, 270],
@@ -758,8 +851,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Lawn",
                     "coordinates": [0, 100],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [0, 200],
                     //     [100, 200],
@@ -771,8 +870,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "The Lower Terrace",
                     "coordinates": [100, 100],
-                    "dimensions": [100, 100],
                     "height": 30,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [100, 200],
                     //     [200, 200],
@@ -784,8 +889,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "marble anteater",
                     "coordinates": [140, 140],
-                    "dimensions": [20, 20],
                     "height": 36,
+                    "shape": [
+                        [0, 0],
+                        [0, 20],
+                        [20, 20],
+                        [20, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [140, 160],
                     //     [160, 160],
@@ -797,8 +908,14 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "Rose Garden",
                     "coordinates": [0, 0],
-                    "dimensions": [100, 100],
                     "height": 0,
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ],
                     // "shape": [
                     //     [0, 0],
                     //     [0, 100],
@@ -810,15 +927,19 @@ export let isovist = function (vorple, showMap = false) {
                 {
                     "name": "thicket of red roses",
                     "coordinates": [0, 0],
-                    "dimensions": [100, 100],
-                    "height": -10,
+                    "height": 4,
                     "shape": [
+                        [100, 0],
                         [0, 0],
                         [0, 100],
                         [100, 100],
-                        [100, 0],
                     ],
-                    "height": 4
+                    // "shape": [
+                    //     [0, 0],
+                    //     [0, 100],
+                    //     [100, 100],
+                    //     [100, 0],
+                    // ],
                 }
             ],
             "perspectives": [
@@ -856,7 +977,7 @@ export let isovist = function (vorple, showMap = false) {
         showMap: showMap,
         loadWorld: function () {
             this.nouns = new Map(this.world.nouns.map(
-                nounJSON => [nounJSON.name, new Shape(pointsFromArray(nounJSON.shape), nounJSON.height)]
+                nounJSON => [nounJSON.name, new Shape(new Point(...nounJSON.coordinates), pointsFromArray(nounJSON.shape), nounJSON.height)]
             ))
             let perspectives = this.world.perspectives;
             perspectives.forEach(p => {
@@ -918,6 +1039,9 @@ export let isovist = function (vorple, showMap = false) {
 
             for (let [name, shape] of this.nouns.entries()) {
                 let polygon = document.createElementNS(svgns, "polygon")
+                if (shape.coordinates == []) {
+                    continue;
+                }
                 polygon.setAttribute("points", shape.toString())
                 let polyTitle = document.createElementNS(svgns, "title")
                 polyTitle.textContent = name
@@ -1057,9 +1181,14 @@ export let isovist = function (vorple, showMap = false) {
                 child = outputWindow.lastElementChild;
             }
         },
-        take: function (nounName) {
+        take: function (perspectiveName, nounName) {
+            let perspective = this.perspectives.get(perspectiveName);
+            if (perspective == undefined) return false;
             let noun = this.nouns.get(nounName);
-            noun.location = [];
+            if (noun == undefined) return false;
+            noun.setCoordinates([]);
+            this.updateVisibility(perspectiveName);
+            return true;
         }
     }
 };
