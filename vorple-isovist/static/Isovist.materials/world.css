@@ -1,0 +1,85 @@
+.map-div {
+    width: 1000px;
+    height: 1000px;
+}
+
+svg {
+    display: block;
+    width: 500px;
+    height: 500px;
+    border: 2px solid black;
+}
+
+.isovist {
+    fill: yellow;
+    stroke: lightgrey;
+    stroke-width: 1;
+    display: block;
+    opacity: .3;
+}
+
+.visTriangle {
+    opacity: .3;
+}
+
+.isovist.right {
+    fill: red;
+}
+
+.visTriangle.right {
+    fill: pink;
+}
+
+.isovist.left {
+    fill: blue;
+}
+
+.visTriangle.left {
+    fill: lightblue;
+}
+
+.isovist.front {
+    fill: green;
+}
+
+.visTriangle.front {
+    fill: lightgreen;
+}
+
+.visTriangle {
+    fill: purple;
+    stroke: lightgrey;
+    stroke-width: 1;
+    display: block;
+}
+
+.pov {
+    fill: red;
+}
+
+.invisible {
+    fill: darkgrey;
+    stroke: black;
+    stroke-width: 2;
+}
+
+.visible {
+    fill: green;
+    stroke: black;
+    stroke-width: 2;
+}
+
+.segment {
+    stroke: blue;
+    stroke-width: 2;
+}
+
+.visibleSegment {
+    stroke: lime;
+    stroke-width: 2;
+}
+
+.status-line-isovist {
+    flex: 1;
+    text-align: center;
+}

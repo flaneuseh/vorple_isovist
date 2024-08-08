@@ -1,0 +1,62 @@
+! Blurb file created by Inform Inform 10.1.2 (build )
+
+status "/Applications/Inform.app/Contents/Resources/Internal/HTML/CblorbModel.html" "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.inform/Build/StatusCblorb.html"
+
+
+! Identification
+
+project folder "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.inform"
+release to "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Release"
+
+! Blorb instructions
+
+storyfile leafname "StatelyGardens.gblorb"
+storyfile "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.inform/Build/output.ulx" include
+ifiction "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.inform/Metadata.iFiction" include
+cover "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/DefaultCover.jpg"
+picture 1 "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/DefaultCover.jpg"
+release file "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/DefaultCover.jpg"
+release file "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/Small Cover.jpg"
+
+! Placeholder variables
+
+placeholder [IFID] = "97421C2A-5755-40C5-9E87-83353335B1C8"
+placeholder [RELEASE] = "1"
+placeholder [YEAR] = "2024"
+placeholder [TITLE] = "StatelyGardens"
+placeholder [AUTHOR] = "Kaylah Facey"
+placeholder [BLURB] = "A work of interactive fiction."
+
+! Other material to release
+
+auxiliary "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/world.js" "--" "--"
+auxiliary "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/world.css" "--" "--"
+
+! Website instructions
+
+placeholder [ENCODEDSTORYFILE] = "StatelyGardens.gblorb.js"
+template path "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Templates"
+template path "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Templates"
+template path "/Users/austen/Library/Inform/Templates"
+template path "/Applications/Inform.app/Contents/Resources/Internal/Templates"
+placeholder [INTERPRETERSCRIPTS] = " <script src='world.js'></script><link rel='stylesheet' href='world.css' type='text/css' media='all'></link>"
+interpreter "Vorple" "g"
+base64 "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.inform/Build/output.ulx" to "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Release/interpreter/StatelyGardens.gblorb.js"
+
+! Website instructions
+
+template path "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Templates"
+template path "/Users/austen/Library/CloudStorage/OneDrive-Personal/MinervasLocket/Writing/Jeux/Projects/Isovist/Isovist.materials/Templates"
+template path "/Users/austen/Library/Inform/Templates"
+template path "/Applications/Inform.app/Contents/Resources/Internal/Templates"
+css
+website "Standard"
+status instruction ||&nbsp;<a href="source:story.ni#line8"><img border=0 src=inform:/doc_images/Reveal.png></a>||
+status instruction ||&nbsp;<a href="source:story.ni#line9"><img border=0 src=inform:/doc_images/Reveal.png></a>||
+status instruction ||&nbsp;<a href="source:story.ni#line10"><img border=0 src=inform:/doc_images/Reveal.png></a>||
+status alternative ||Using 'Release along with cover art', to provide something more distinctive than the default artwork above&nbsp;<a href=inform:/doc401.html><img border=0 src=inform:/doc_images/help.png></a>||
+status alternative ||Using 'Release along with the source text'&nbsp;<a href=inform:/doc410.html><img border=0 src=inform:/doc_images/help.png></a>||
+status alternative ||Using 'Release along with a solution'&nbsp;<a href=inform:/doc409.html><img border=0 src=inform:/doc_images/help.png></a>||
+status alternative ||Using 'Release along with the library card'&nbsp;<a href=inform:/doc410.html><img border=0 src=inform:/doc_images/help.png></a>||
+status alternative ||Using 'Release along with the introductory booklet'&nbsp;<a href=inform:/doc402.html><img border=0 src=inform:/doc_images/help.png></a>||
+status alternative ||Using 'Release along with the introductory postcard'&nbsp;<a href=inform:/doc402.html><img border=0 src=inform:/doc_images/help.png></a>||
