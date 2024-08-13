@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<Skein rootNode="node-8564">
+    <generator>Inform Mac Client (Inform version 1.82/6.41/10.1.2)</generator>
+    <item nodeId="node-8564">
+        <command xml:space="preserve">CloakOfDarkness</command>
+        <result xml:space="preserve">
+
+
+
+
+
+Hurrying through the rainswept November night, you're glad to see the bright lights of the Opera House. It's surprising that there aren't more people about but, hey, what do you expect in a cheap demo game...?
+
+CloakOfDarkness
+An Interactive Fiction by Kaylah Facey
+Release 1 / Serial number 240812 / Inform 7 v10.1.2 / D
+
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9768"></child>
+        </children>
+    </item>
+    <item nodeId="node-9768">
+        <command xml:space="preserve">north</command>
+        <result xml:space="preserve">You've only just arrived, and besides, the weather outside seems to be getting worse.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9769"></child>
+        </children>
+    </item>
+    <item nodeId="node-9769">
+        <command xml:space="preserve">south</command>
+        <result xml:space="preserve">
+Darkness
+It is pitch dark, and you can't see a thing.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9770"></child>
+        </children>
+    </item>
+    <item nodeId="node-9770">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">In the dark? You could easily disturb something.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9771"></child>
+        </children>
+    </item>
+    <item nodeId="node-9771">
+        <command xml:space="preserve">south</command>
+        <result xml:space="preserve">Blundering around in the dark isn't a good idea!
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9772"></child>
+        </children>
+    </item>
+    <item nodeId="node-9772">
+        <command xml:space="preserve">north</command>
+        <result xml:space="preserve">
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9773"></child>
+        </children>
+    </item>
+    <item nodeId="node-9773">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a velvet cloak (being worn)
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9774"></child>
+        </children>
+    </item>
+    <item nodeId="node-9774">
+        <command xml:space="preserve">west</command>
+        <result xml:space="preserve">
+Cloakroom
+The walls of this small room were clearly once lined with hooks, though now only one remains. The exit is a door to the east.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9775"></child>
+        </children>
+    </item>
+    <item nodeId="node-9775">
+        <command xml:space="preserve">x hook</command>
+        <result xml:space="preserve">It's just a small brass hook, screwed to the wall.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9776"></child>
+        </children>
+    </item>
+    <item nodeId="node-9776">
+        <command xml:space="preserve">put cloak on hook</command>
+        <result xml:space="preserve">(first taking it off)
+You put the velvet cloak on the small brass hook.
+
+[Your score has just gone up by one point.]
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9777"></child>
+        </children>
+    </item>
+    <item nodeId="node-9777">
+        <command xml:space="preserve">east</command>
+        <result xml:space="preserve">
+Foyer of the Opera House
+You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9778"></child>
+        </children>
+    </item>
+    <item nodeId="node-9778">
+        <command xml:space="preserve">south</command>
+        <result xml:space="preserve">
+Foyer Bar
+The bar, much rougher than you'd have guessed after the opulence of the foyer to the north, is completely empty. There seems to be some sort of message scrawled in the sawdust on the floor.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9779"></child>
+        </children>
+    </item>
+    <item nodeId="node-9779">
+        <command xml:space="preserve">x message</command>
+        <result xml:space="preserve">The message has been carelessly trampled, making it difficult to read. You can just distinguish the words...
+
+
+
+    *** You have lost ***
+
+
+In that game you scored 1 out of a possible 2, in 12 turns.
+
+
+Would you like to RESTART, RESTORE a saved game, QUIT or UNDO the last command?
+&gt; </result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+</Skein>

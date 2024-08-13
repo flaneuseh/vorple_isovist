@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+
+<Skein rootNode="node-9737">
+    <generator>Inform Mac Client (Inform version 1.82/6.41/10.1.2)</generator>
+    <item nodeId="node-9737">
+        <command xml:space="preserve">Isovist</command>
+        <result xml:space="preserve">
+
+
+
+
+StatelyGardens
+An Interactive Fiction by Kaylah Facey
+Release 1 / Serial number 240813 / Inform 7 v10.1.2 / D
+
+This game uses tank movement commands. Use WS to move forward and back, and AD to turn right and left without moving. To quit, press Q.
+
+You can't go any further that way.
+
+You are .
+Directly in front of you: There is nothing of note.
+Further to the front: There is nothing of note.
+Directly to your left: There is nothing of note.
+Further to the left: There is nothing of note.
+Directly to your right: There is nothing of note.
+Further to the right: There is nothing of note.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9759"></child>
+            <child nodeId="node-9751"></child>
+            <child nodeId="node-9748"></child>
+            <child nodeId="node-9741"></child>
+            <child nodeId="node-9738"></child>
+        </children>
+    </item>
+    <item nodeId="node-9738">
+        <command xml:space="preserve">rules on</command>
+        <result xml:space="preserve">Rules tracing now switched on. Type "rules off" to switch it off again, or "rules all" to include even rules which do not apply.
+
+[Rule "parse command rule" applies.]
+[Rule "print notifications fallback rule" applies.]
+[Rule "empty displayed notifications list rule" applies.]
+[Rule "convert default prompt to Vorple prompt rule" applies.]
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9739"></child>
+        </children>
+    </item>
+    <item nodeId="node-9739">
+        <command xml:space="preserve">actions on</command>
+        <result xml:space="preserve">[Rule "declare everything initially unmentioned rule" applies.]
+[Rule "generate action rule" applies.]
+Actions listing on.
+
+[Rule "parse command rule" applies.]
+[Rule "print notifications fallback rule" applies.]
+[Rule "empty displayed notifications list rule" applies.]
+[Rule "convert default prompt to Vorple prompt rule" applies.]
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9740"></child>
+        </children>
+    </item>
+    <item nodeId="node-9740">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">[Rule "timed events rule" applies.]
+[Rule "advance time rule" applies.]
+[Rule "update chronological records rule" applies.]
+[Rule "A last turn sequence rule" applies.]
+[Rule "scene change machinery rule" applies.]
+[Rule "adjust light rule" applies.]
+[Rule "note object acquisitions rule" applies.]
+[Rule "notify score changes rule" applies.]
+[Rule "parse command rule" applies.]
+[Rule "print notifications fallback rule" applies.]
+[Rule "empty displayed notifications list rule" applies.]
+[Rule "convert default prompt to Vorple prompt rule" applies.]
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-9741">
+        <command xml:space="preserve">f</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9742"></child>
+        </children>
+    </item>
+    <item nodeId="node-9742">
+        <command xml:space="preserve">dasdf</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9743"></child>
+        </children>
+    </item>
+    <item nodeId="node-9743">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9744"></child>
+        </children>
+    </item>
+    <item nodeId="node-9744">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9745"></child>
+        </children>
+    </item>
+    <item nodeId="node-9745">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9746"></child>
+        </children>
+    </item>
+    <item nodeId="node-9746">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9747"></child>
+        </children>
+    </item>
+    <item nodeId="node-9747">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-9748">
+        <command xml:space="preserve">dddddd</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9749"></child>
+        </children>
+    </item>
+    <item nodeId="node-9749">
+        <command xml:space="preserve">c</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9750"></child>
+        </children>
+    </item>
+    <item nodeId="node-9750">
+        <command xml:space="preserve">asdfasdf</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-9751">
+        <command xml:space="preserve">ddd</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9752"></child>
+        </children>
+    </item>
+    <item nodeId="node-9752">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9753"></child>
+        </children>
+    </item>
+    <item nodeId="node-9753">
+        <command xml:space="preserve"></command>
+        <result xml:space="preserve">I beg your pardon?
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9754"></child>
+        </children>
+    </item>
+    <item nodeId="node-9754">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9755"></child>
+        </children>
+    </item>
+    <item nodeId="node-9755">
+        <command xml:space="preserve">sddf</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9756"></child>
+        </children>
+    </item>
+    <item nodeId="node-9756">
+        <command xml:space="preserve"></command>
+        <result xml:space="preserve">I beg your pardon?
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9757"></child>
+        </children>
+    </item>
+    <item nodeId="node-9757">
+        <command xml:space="preserve"></command>
+        <result xml:space="preserve">I beg your pardon?
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9758"></child>
+        </children>
+    </item>
+    <item nodeId="node-9758">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-9759">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9760"></child>
+        </children>
+    </item>
+    <item nodeId="node-9760">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9761"></child>
+        </children>
+    </item>
+    <item nodeId="node-9761">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9762"></child>
+        </children>
+    </item>
+    <item nodeId="node-9762">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">You can't go that way.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9763"></child>
+        </children>
+    </item>
+    <item nodeId="node-9763">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">You can't go that way.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9764"></child>
+        </children>
+    </item>
+    <item nodeId="node-9764">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">You can't go that way.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-9765"></child>
+        </children>
+    </item>
+    <item nodeId="node-9765">
+        <command xml:space="preserve">d</command>
+        <result xml:space="preserve">You can't go that way.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+</Skein>
