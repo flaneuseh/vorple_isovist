@@ -626,351 +626,27 @@ export class Isovist {
         }
     }
 
-    contains(p/*: Point*/)/*: boolean*/ {
+    containsPoint(p/*: Point*/)/*: boolean*/ {
         for (var i = 0; i < this.triangles.length; i++) {
             if (this.triangles[i].contains(p)) return true;
         }
         return false;
+    }
+
+    containsShape(s/*: Shape*/)/*: boolean*/ {
+        for (p of s.points) {
+            if (!this.containsPoint(p)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
 
 export let isovist = function (vorple, showMap = false) {
     return {
         vorple: vorple,
-        world: {
-            "nouns": [
-                {
-                    "name": "Ha-ha",
-                    "coordinates": [0, 400],
-                    "height": -10,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 500],
-                    //     [100, 500],
-                    //     [100, 400],
-                    //     [0, 400],
-                    //     [0, 500]
-                    // ],
-                },
-                {
-                    "name": "Sheep Field",
-                    "coordinates": [0, 500],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 600],
-                    //     [100, 600],
-                    //     [100, 500],
-                    //     [0, 500],
-                    //     [0, 600]
-                    // ]
-                },
-                {
-                    "name": "black sheep",
-                    "coordinates": [70, 550],
-                    "height": 4,
-                    "shape": [
-                        [0, 0],
-                        [0, 20],
-                        [10, 20],
-                        [10, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [70, 570],
-                    //     [80, 570],
-                    //     [80, 550],
-                    //     [70, 550],
-                    //     [70, 570]
-                    // ],
-                },
-                {
-                    "name": "Gravel Circle",
-                    "coordinates": [0, 300],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 400],
-                    //     [100, 400],
-                    //     [100, 300],
-                    //     [0, 300],
-                    //     [0, 400]
-                    // ]
-                },
-                {
-                    "name": "half-size Bentley",
-                    "coordinates": [70, 350],
-                    "height": 3,
-                    "shape": [
-                        [0, 0],
-                        [0, 20],
-                        [10, 20],
-                        [10, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [70, 370],
-                    //     [80, 370],
-                    //     [80, 350],
-                    //     [70, 350],
-                    //     [70, 370]
-                    // ],
-                },
-                {
-                    "name": "The Upper Terrace",
-                    "coordinates": [100, 300],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [100, 400],
-                    //     [200, 400],
-                    //     [200, 300],
-                    //     [100, 300],
-                    //     [100, 400]
-                    // ]
-                },
-                {
-                    "name": "The Obelisk",
-                    "coordinates": [140, 340],
-                    "height": 50,
-                    "shape": [
-                        [0, 0],
-                        [0, 20],
-                        [20, 20],
-                        [20, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [140, 360],
-                    //     [160, 360],
-                    //     [160, 340],
-                    //     [140, 340],
-                    //     [140, 360]
-                    // ],
-                },
-                {
-                    "name": "Croquet Ground",
-                    "coordinates": [0, 200],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 300],
-                    //     [100, 300],
-                    //     [100, 200],
-                    //     [0, 200],
-                    //     [0, 300]
-                    // ]
-                },
-                {
-                    "name": "stone bench",
-                    "coordinates": [10, 280],
-                    "height": 3,
-                    "shape": [
-                        [0, 0],
-                        [0, 10],
-                        [20, 10],
-                        [20, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [10, 290],
-                    //     [30, 290],
-                    //     [30, 280],
-                    //     [10, 280],
-                    //     [10, 290]
-                    // ],
-                },
-                {
-                    "name": "The Middle Terrace",
-                    "coordinates": [100, 200],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [100, 300],
-                    //     [200, 300],
-                    //     [200, 200],
-                    //     [100, 200],
-                    //     [100, 300]
-                    // ]
-                },
-                {
-                    "name": "Lily Pond",
-                    "coordinates": [120, 250],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 20],
-                        [40, 20],
-                        [40, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [120, 270],
-                    //     [160, 270],
-                    //     [160, 250],
-                    //     [120, 250],
-                    //     [120, 270]
-                    // ]
-                },
-                {
-                    "name": "Lawn",
-                    "coordinates": [0, 100],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 200],
-                    //     [100, 200],
-                    //     [100, 100],
-                    //     [0, 100],
-                    //     [0, 200]
-                    // ]
-                },
-                {
-                    "name": "The Lower Terrace",
-                    "coordinates": [100, 100],
-                    "height": 30,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [100, 200],
-                    //     [200, 200],
-                    //     [200, 100],
-                    //     [100, 100],
-                    //     [100, 200]
-                    // ],
-                },
-                {
-                    "name": "marble anteater",
-                    "coordinates": [140, 140],
-                    "height": 36,
-                    "shape": [
-                        [0, 0],
-                        [0, 20],
-                        [20, 20],
-                        [20, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [140, 160],
-                    //     [160, 160],
-                    //     [160, 140],
-                    //     [140, 140],
-                    //     [140, 160]
-                    // ],
-                },
-                {
-                    "name": "Rose Garden",
-                    "coordinates": [0, 0],
-                    "height": 0,
-                    "shape": [
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                        [100, 0],
-                        [0, 0]
-                    ],
-                    // "shape": [
-                    //     [0, 0],
-                    //     [0, 100],
-                    //     [100, 100],
-                    //     [100, 0],
-                    //     [0, 0]
-                    // ]
-                },
-                {
-                    "name": "thicket of red roses",
-                    "coordinates": [0, 0],
-                    "height": 4,
-                    "shape": [
-                        [100, 0],
-                        [0, 0],
-                        [0, 100],
-                        [100, 100],
-                    ],
-                    // "shape": [
-                    //     [0, 0],
-                    //     [0, 100],
-                    //     [100, 100],
-                    //     [100, 0],
-                    // ],
-                }
-            ],
-            "perspectives": [
-                {
-                    "name": "player",
-                    "pov": [50, 50],
-                    "facing": Math.PI / 2,
-                    "stepSize": 10,
-                    "regions": [
-                        {
-                            "name": "front",
-                            "angle": 0,
-                            "range": Math.PI / 4,
-                            "isovist": undefined,
-                        },
-                        {
-                            "name": "left",
-                            "angle": -Math.PI / 2,
-                            "range": Math.PI / 4,
-                            "isovist": undefined,
-                        },
-                        {
-                            "name": "right",
-                            "angle": Math.PI / 2,
-                            "range": Math.PI / 4,
-                            "isovist": undefined,
-                        }
-                    ]
-                }
-            ]
-        },
         lastStep: "FORWARD",
         nouns: new Map(),
         perspectives: new Map(),
@@ -992,7 +668,7 @@ export let isovist = function (vorple, showMap = false) {
             let marker = document.createElement("span");
             marker.setAttribute("id", "top");
             marker.textContent = " ";
-            outputWindow.appendChild(marker);
+            outputWindow.prepend(marker);
         },
         setShowMap: function (show = false) {
             this.showMap = show;
@@ -1162,12 +838,24 @@ export let isovist = function (vorple, showMap = false) {
             let elem = document.getElementsByClassName(className)[0];
             elem.textContent = text;
         },
-        contains: function (nounName, perspectiveName) {
-            let perspective = this.perspectives.get(perspectiveName);
-            let noun = this.nouns.get(nounName)
-            if (noun.contains(perspective.pov)) {
-                return true;
+        contains: function (containerName, nounOrPerspectiveName) {
+            let container = this.nouns.get(containerName)
+            if (container == undefined) return false;
+            let perspective = this.perspectives.get(nounOrPerspectiveName);
+            if (perspective != undefined) {
+                if (container.containsPoint(perspective.pov)) {
+                    return true;
+                }
+                return false;
             }
+            let noun = this.nouns.get(nounOrPerspectiveName)
+            if (noun != undefined) {
+                if (container.containsShape(noun)) {
+                    return true;
+                }
+                return false;
+            }
+
             return false;
         },
         command: function (command) {

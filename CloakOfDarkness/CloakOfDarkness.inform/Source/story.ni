@@ -1,22 +1,26 @@
 "CloakOfDarkness" by Kaylah Facey
 
+Include Isovist by Kaylah Facey.
+
 Use scoring.
 
 The maximum score is 2.
 
-Foyer of the Opera House is a room.  "You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west."
+The Opera House is a room.
+
+Foyer of the Opera House is a geo-room.  The description is "You are standing in a spacious hall, splendidly decorated in red and gold, with glittering chandeliers overhead. The entrance from the street is to the north, and there are doorways south and west."
 
 Instead of going north in the Foyer, say "You've only just arrived, and besides, the weather outside seems to be getting worse."
 
-The Cloakroom is west of the Foyer. "The walls of this small room were clearly once lined with hooks, though now only one remains. The exit is a door to the east."
+The Cloakroom is a geo-room. The description is "The walls of this small room were clearly once lined with hooks, though now only one remains. The exit is a door to the east."
 
-In the Cloakroom is a supporter called the small brass hook. The hook is scenery. Understand "peg" as the hook.
+In the Cloakroom is a geometric supporter called the small brass hook. The hook is scenery. Understand "peg" as the hook.
 
 The description of the hook is "It's just a small brass hook, [if something is on the hook]with [a list of things on the hook] hanging on it[otherwise]screwed to the wall[end if]."
 
-The Bar is south of the Foyer. The printed name of the bar is "Foyer Bar". The Bar is dark.  "The bar, much rougher than you'd have guessed after the opulence of the foyer to the north, is completely empty. There seems to be some sort of message scrawled in the sawdust on the floor."
+The Bar is a geo-room. The printed name of the bar is "Foyer Bar". The Bar is dark. The description is "The bar, much rougher than you'd have guessed after the opulence of the foyer to the north, is completely empty. There seems to be some sort of message scrawled in the sawdust on the floor."
 
-The scrawled message is scenery in the Bar. Understand "floor" or "sawdust" as the message.
+The scrawled message is a geometric scenery container in the Bar. Understand "floor" or "sawdust" as the message.
 
 Neatness is a kind of value. The neatnesses are neat, scuffed, and trampled. The message has a neatness. The message is neat.
 
@@ -29,12 +33,16 @@ Instead of examining the trampled message:
 	say "The message has been carelessly trampled, making it difficult to read. You can just distinguish the words...";
 	end the story saying "You have lost".
 
-Instead of doing something other than going in the bar when in darkness:
-	if the message is not trampled, now the neatness of the message is the neatness after the neatness of the message;
+After geo-moving:
+	if the player is geometrically enclosed by the message:
+		if the message is not trampled, now the neatness of the message is the neatness after the neatness of the message;
+		if the Bar is not dark:
+			say "You've gone and scuffed the message on the floor.[if the message is trampled] You doubt you'll be able to read it now."
+
+Instead of doing something other than geo-moving in the bar when in darkness:
 	say "In the dark? You could easily disturb something."
 
-Instead of going nowhere from the bar when in darkness:
-	now the message is trampled;
+After geo-moving when the player is geometrically enclosed by the Bar and the Bar is dark:
 	say "Blundering around in the dark isn't a good idea!"
 
 The player wears a velvet cloak. The cloak can be hung or unhung. Understand "dark" or "black" or "satin" as the cloak. The description of the cloak is "A handsome cloak, of velvet trimmed with satin, and slightly splattered with raindrops. Its blackness is so deep that it almost seems to suck light from the room."

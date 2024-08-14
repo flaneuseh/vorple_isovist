@@ -1,18 +1,20 @@
 "StatelyGardens" by Kaylah Facey
 
 
-Include Vorple Notifications by Juhana Leinonen.
-Include Vorple Command Prompt Control by Juhana Leinonen.
-Include Vorple Element Manipulation by Juhana Leinonen.
-Include Vorple Hyperlinks by Juhana Leinonen.
-Release along with the "Vorple" interpreter.
+[Include Vorple Notifications by Juhana Leinonen.]
+[Include Vorple Command Prompt Control by Juhana Leinonen.]
+[Include Vorple Element Manipulation by Juhana Leinonen.]
+[Include Vorple Hyperlinks by Juhana Leinonen.]
+[Release along with the "Vorple" interpreter.]
 [Release along with Javascript "world.js".
 Release along with the style sheet "world.css".]
-Include Basic Screen Effects by Emily Short.
-Include Vorple Status Line by Juhana Leinonen.
+[Include Basic Screen Effects by Emily Short.]
+[Include Vorple Status Line by Juhana Leinonen.]
+Include Isovist by Kaylah Facey
 
 [
 Section - Char Entry
+[Char entry has been abstracted to JS control.]
 
 Keychar is a number that varies. [setting up the parser to identify specific key presses during transitions]
 Keypress is some text that varies.
@@ -42,8 +44,10 @@ To decide what number is the chosen letter:
 	(- VM_KeyChar() -).
 	]
 
+[
 Chapter - Isovist
 
+[Isovist has been abstracted to the Isovist extension]
 A thing can be geometric. A thing is usually not geometric. 
 A geo-room is a kind of container. A geo-room is always geometric. A geo-room is never portable.
 The near left isovist is a list of things that varies. The far left isovist is a list of things that varies.
@@ -220,6 +224,64 @@ To decide whether the player is geometrically enclosed by (N - a thing):
 		decide yes;
 	decide no.
 	
+After deciding the scope of the player:
+	update the isovist;
+	repeat with X running through the near left isovist:
+		place X in scope;
+	repeat with X running through the far left isovist:
+		place X in scope;
+	repeat with X running through the near right isovist:
+		place X in scope;
+	repeat with X running through the far right isovist:
+		place X in scope;
+	repeat with X running through the near front isovist:
+		place X in scope;
+	repeat with X running through the far front isovist:
+		place X in scope;
+	repeat with X running through the containment isovist:
+		place X in scope.
+
+To say locale details: describe locale for the holder of the player.
+
+Updating the isovist is an action applying to nothing. Understand "isovist" as updating the isovist.
+Carry out updating the isovist:
+	update the isovist.
+	[execute JavaScript command "isovist.setText('status-line-isovist', '[isovist description]')".]
+
+To decide whether the player is geometrically located:
+	repeat with X running through the geometric things:
+		if X is a container and the player is geometrically enclosed by X:
+			decide yes;
+	decide no.
+	
+To decide whether the player is not geometrically located:
+	if the player is geometrically located:
+		decide no;
+	decide yes.
+
+Before looking for the first time:
+	say "This game uses tank movement commands. Use WS to move forward and back, and AD to turn right and left without moving. To quit, press Q.";
+	execute JavaScript command "isovist.loadWorld()";
+	update the isovist;
+	continue the action.	
+
+Before looking:
+	if the player is not geometrically located:
+		say "You can't go any further that way.";
+		execute JavaScript command "isovist.reverse('player')";
+		update the isovist;		
+		continue the action.
+
+Instead of looking:
+	say "[enclosure description].";
+	say "Directly in front of you: [near appearance of the near front isovist]";
+	say "Further to the front: [far appearance of the far front isovist]";
+	say "Directly to your left: [near appearance of the near left isovist]";
+	say "Further to the left: [far appearance of the far left isovist]";
+	say "Directly to your right: [near appearance of the near right isovist]";
+	say "Further to the right: [far appearance of the far right isovist]".				
+	
+]
 	
 Chapter - Game
 
@@ -242,25 +304,6 @@ There is a geo-room called The Lower Terrace. The enclosement description is "on
 The marble anteater is geometric scenery. The near appearance is "A marble anteater stands on a pedestal at the top of the Lower Terrace." The far appearance text is "[the near appearance of the marble anteater]". The description is "The anteater is very much more than life-size."
 The Rose Garden is a geo-room. 
 The thicket of red roses is a geometric container. The thicket is scenery. The description is "Heavy red roses grow over a roughly horseshoe-shaped wall around you." The enclosement description is "surrounded by [a thicket]".
-
-After deciding the scope of the player:
-	update the isovist;
-	repeat with X running through the near left isovist:
-		place X in scope;
-	repeat with X running through the far left isovist:
-		place X in scope;
-	repeat with X running through the near right isovist:
-		place X in scope;
-	repeat with X running through the far right isovist:
-		place X in scope;
-	repeat with X running through the near front isovist:
-		place X in scope;
-	repeat with X running through the far front isovist:
-		place X in scope;
-	repeat with X running through the containment isovist:
-		place X in scope.
-
-To say locale details: describe locale for the holder of the player.
 	
 [When play begins:
 	construct a Vorple status line with 1 column.]
@@ -305,62 +348,14 @@ Rule for constructing the Vorple status line:
 ]	set the output focus to the main window;
 	rule succeeds.
 ]
-
-[JS command testing]
-[When play begins:
-	[execute JavaScript command "return count()";
-	let count be the number returned by the JavaScript command;
-	say "Count: [count]";]
-	open HTML tag "div" called "map";
-	close HTML tag;
-	execute JavaScript command "isovist.loadWorld()";
-	update the isovist	.
-	[show the element called "map-div".]]
 	
+[The following is now being handled by JS]
 [Every turn:
 	update the isovist.
 	execute JavaScript command "isovist.setText('status-line-isovist', '[isovist description]')".]
 	
-Updating the isovist is an action applying to nothing. Understand "isovist" as updating the isovist.
-Carry out updating the isovist:
-	update the isovist.
-	[execute JavaScript command "isovist.setText('status-line-isovist', '[isovist description]')".]
-		
+[The game now uses purely tank movement, and keypresses are handled entirely by JS]
 [Understand the command "move" as something new. Understand "move" as moving. Moving is an action applying to nothing. Carry out moving: enter tank movement mode.]
-
-To decide whether the player is geometrically located:
-	repeat with X running through the geometric things:
-		if X is a container and the player is geometrically enclosed by X:
-			decide yes;
-	decide no.
-	
-To decide whether the player is not geometrically located:
-	if the player is geometrically located:
-		decide no;
-	decide yes.
-
-Before looking for the first time:
-	say "This game uses tank movement commands. Use WS to move forward and back, and AD to turn right and left without moving. To quit, press Q.";
-	execute JavaScript command "isovist.loadWorld()";
-	update the isovist;
-	continue the action.	
-
-Before looking:
-	if the player is not geometrically located:
-		say "You can't go any further that way.";
-		execute JavaScript command "isovist.reverse('player')";
-		update the isovist;		
-		continue the action.
-
-Instead of looking:
-	say "[enclosure description].";
-	say "Directly in front of you: [near appearance of the near front isovist]";
-	say "Further to the front: [far appearance of the far front isovist]";
-	say "Directly to your left: [near appearance of the near left isovist]";
-	say "Further to the left: [far appearance of the far left isovist]";
-	say "Directly to your right: [near appearance of the near right isovist]";
-	say "Further to the right: [far appearance of the far right isovist]".				
-	
 [To enter tank movement mode:
 	say "This game uses tank movement commands. Use WS to move forward and back, and AD to turn right and left without moving. To quit, press Q."; [Press the SPACE key to enter parser mode.]
 	now keypress is "m";

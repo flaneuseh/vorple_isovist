@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { world } from '$lib/CloakOfDarkness_world';
 	import { isovist } from '$lib/world';
 	import { onMount } from 'svelte';
 	import 'vorple/lib/css/vorple.css';
@@ -9,13 +10,13 @@
 			// Container for the interpreter
 			container: '#vorple',
 			// @ts-ignore
-			story: 'StatelyGardens.gblorb'
+			story: 'CloakOfDarkness.gblorb'
 		};
 		vorple.init();
 		// @ts-ignore
 		window.isovist = isovist(vorple, true);
-		// // @ts-ignore
-		// window.isovist.loadWorld();
+		// @ts-ignore
+		window.isovist.world = world;
 	});
 
 	function on_key_down(event: any) {
