@@ -200,7 +200,7 @@ export let world = {
             "stepSize": 10,
             "regions": [
                 {
-                    "name": "front",
+                    "name": "forward",
                     "angle": 0,
                     "range": Math.PI / 4,
                     "isovist": undefined,
@@ -216,7 +216,13 @@ export let world = {
                     "angle": Math.PI / 2,
                     "range": Math.PI / 4,
                     "isovist": undefined,
-                }
+                },
+                {
+                    "name": "back",
+                    "angle": Math.PI,
+                    "range": Math.PI / 4,
+                    "isovist": undefined,
+                },
             ]
         }
     ]

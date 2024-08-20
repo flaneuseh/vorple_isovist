@@ -284,7 +284,7 @@ export class Shape {
     }
 
     // based on https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
-    contains(p) {
+    containsPoint(p) {
         let contains = false;
         var minX = this.points[0].x, maxX = this.points[0].x;
         var minY = this.points[0].y, maxY = this.points[0].y;
@@ -310,8 +310,18 @@ export class Shape {
         return contains;
     }
 
+    containsShape(s/*: Shape*/)/*: boolean*/ {
+        for (var p of s.points) {
+            if (!this.containsPoint(p)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     minDistanceFromPoint(p) {
-        if (this.contains(p)) {
+        if (this.containsPoint(p)) {
             return 0;
         }
         let minDistance = 1000;
@@ -634,7 +644,7 @@ export class Isovist {
     }
 
     containsShape(s/*: Shape*/)/*: boolean*/ {
-        for (p of s.points) {
+        for (var p of s.points) {
             if (!this.containsPoint(p)) {
                 return false;
             }
@@ -653,7 +663,7 @@ export let isovist = function (vorple, showMap = false) {
         showMap: showMap,
         loadWorld: function () {
             this.nouns = new Map(this.world.nouns.map(
-                nounJSON => [nounJSON.name, new Shape(new Point(...nounJSON.coordinates), pointsFromArray(nounJSON.shape), nounJSON.height)]
+                nounJSON => [nounJSON.name, nounJSON.shapes.map(shape => new Shape(new Point(...shape.coordinates), pointsFromArray(shape.shape), shape.height))]
             ))
             let perspectives = this.world.perspectives;
             perspectives.forEach(p => {
@@ -677,27 +687,29 @@ export let isovist = function (vorple, showMap = false) {
             let perspective = this.perspectives.get(perspectiveName);
             if (perspective == undefined) return false;
             perspective.regions.forEach(r => {
-                r.isovist = new Isovist([...this.nouns.values()], perspective.pov, perspective.facing + r.angle, r.range)
+                r.isovist = new Isovist([...this.nouns.values()].flat(), perspective.pov, perspective.facing + r.angle, r.range)
             });
 
             // Allow each noun to only be in the region that it is the most visible in.
-            this.nouns.forEach(n => {
+            this.nouns.forEach(nounShapes => {
                 let regionLengths = new Map();
                 let longest = 0;
-                perspective.regions.forEach(r => {
-                    let shapeVisibility = r.isovist.shapes.get(n);
+                perspective.regions.forEach(region => {
+                    let shapeVisibility = nounShapes.map(shape => region.isovist.shapes.get(shape)).filter(shapeVisibility => shapeVisibility != undefined).flat();
                     let combinedLength = 0;
-                    if (shapeVisibility != undefined) {
-                        combinedLength = shapeVisibility.reduce((partialLength, s) => partialLength + s.length, 0);
-                    }
-                    regionLengths.set(r, combinedLength);
+                    combinedLength = shapeVisibility.reduce((partialLength, visibleSegment) => partialLength + visibleSegment.length, 0);
+                    regionLengths.set(region, combinedLength);
                     if (combinedLength > longest) {
                         longest = combinedLength;
                     }
                 });
                 for (let [region, length] of regionLengths.entries()) {
                     if (length != longest) {
-                        region.isovist.shapes.delete(n);
+                        for (let shape of nounShapes) {
+                            if (region.isovist.shapes.get(shape) != undefined) {
+                                region.isovist.shapes.delete(shape);
+                            }
+                        }
                     }
                 }
             });
@@ -705,6 +717,7 @@ export let isovist = function (vorple, showMap = false) {
             if (this.showMap) {
                 this.updateMap();
             }
+            return true;
         },
         updateMap: function () {
             const svgns = "http://www.w3.org/2000/svg";
@@ -763,102 +776,108 @@ export let isovist = function (vorple, showMap = false) {
             });
         },
         getVisibility: function (perspectiveName/*: string*/, regionName/*: string*/, nounName/*: string*/)/*: boolean*/ {
-            let shape = this.nouns.get(nounName);
+            let shapes = this.nouns.get(nounName);
             let perspective = this.perspectives.get(perspectiveName)
             if (perspective == undefined) return false;
             let region = perspective.regions.get(regionName)
             if (region == undefined) return false;
-            if (region.isovist.shapes.get(shape) != undefined) {
-                return true;
+            for (let shape of shapes) {
+                if (region.isovist.shapes.get(shape) != undefined) {
+                    return true;
+                }
             }
             return false;
-
         },
         getDistance: function (perspectiveName/*: string*/, nounName/*: string*/)/*: boolean*/ {
-            let shape = this.nouns.get(nounName);
+            let shapes = this.nouns.get(nounName);
             let perspective = this.perspectives.get(perspectiveName)
             if (perspective == undefined) return false;
             let pov = perspective.pov
 
-            return shape.minDistanceFromPoint(pov);
+            return Math.min(shapes.map(shape => shape.minDistanceFromPoint(pov)))
         },
-        step: function (perspectiveName, degreesFromFacing = 0, steps/*: number*/ = 1) {
+        step: function (perspectiveName = "yourself", directionName = "forward", steps/*: number*/ = 1) {
+            let perspective = this.perspectives.get(perspectiveName);
+            if (perspective == undefined) return false;
+            let direction = perspective.regions.get(directionName)
+            if (direction == undefined) return false;
+            let degreesFromFacing = direction.angle;
+            if (this.stepDegrees(perspectiveName, degreesFromFacing, steps)) {
+                this.lastStep = directionName;
+                return true;
+            }
+            return false;
+        },
+        stepDegrees: function (perspectiveName = "yourself", degreesFromFacing = 0, steps = 1) {
             let perspective = this.perspectives.get(perspectiveName);
             if (perspective == undefined) return false;
             let degrees = perspective.facing + degreesFromFacing;
             perspective.pov.x += Math.cos(degrees) * perspective.stepSize * steps;
             perspective.pov.y += Math.sin(degrees) * perspective.stepSize * steps;
-
-            this.updateVisibility(perspectiveName);
-        },
-        stepForward: function (perspectiveName, steps/*: number*/ = 1) {
-            if (this.step(perspectiveName, 0, steps)) {
-                this.lastStep = "FORWARD";
-            }
-        },
-        stepBack: function (perspectiveName, steps/*: number*/ = 1) {
-            if (this.step(perspectiveName, Math.PI, steps)) {
-                this.lastStep = "BACK";
-            }
-        },
-        stepRight: function (perspectiveName, steps/*: number*/ = 1) {
-            if (this.step(perspectiveName, Math.PI / 2, steps)) {
-                this.lastStep = "RIGHT";
-            }
-        },
-        stepLeft: function (perspectiveName, steps/*: number*/ = 1) {
-            if (this.step(perspectiveName, -Math.PI / 2, steps)) {
-                this.lastStep = "LEFT";
-            }
+            return this.updateVisibility(perspectiveName);
         },
         reverse: function (perspectiveName, steps = 1) {
-            if (this.lastStep == "FORWARD") {
-                this.stepBack(perspectiveName, steps);
-            } else if (this.lastStep == "BACK") {
-                this.stepForward(perspectiveName, steps);
-            } else if (this.lastStep == "LEFT") {
-                this.stepRight(perspectiveName, steps);
-            } else if (this.lastStep == "RIGHT") {
-                this.stepLeft(perspectiveName, steps);
+            if (this.lastStep == "forward") {
+                return this.step(perspectiveName, "back", steps);
+            } else if (this.lastStep == "back") {
+                return this.step(perspectiveName, "forward", steps);
+            } else if (this.lastStep == "left") {
+                return this.step(perspectiveName, "right", steps);
+            } else if (this.lastStep == "rigth") {
+                return this.step(perspectiveName, "left", steps);
             }
+        },
+        turn(perspectiveName, direction, degrees = Math.PI / 2) {
+            if (direction == "left") {
+                return this.turnLeft(perspectiveName, degrees);
+            } else if (direction == "right") {
+                return this.turnRight(perspectiveName, degrees);
+            }
+            return false;
         },
         turnRight: function (perspectiveName, degrees = Math.PI / 2) {
             let perspective = this.perspectives.get(perspectiveName)
             if (perspective == undefined) return false;
             perspective.facing += degrees
-            this.updateVisibility(perspectiveName);
+            return this.updateVisibility(perspectiveName);
         },
         turnLeft: function (perspectiveName, degrees = Math.PI / 2) {
             let perspective = this.perspectives.get(perspectiveName)
             if (perspective == undefined) return false;
             perspective.facing -= degrees
-            this.updateVisibility(perspectiveName);
+            return this.updateVisibility(perspectiveName);
         },
         setText: function (className, text) {
             let elem = document.getElementsByClassName(className)[0];
             elem.textContent = text;
         },
         contains: function (containerName, nounOrPerspectiveName) {
-            let container = this.nouns.get(containerName)
-            if (container == undefined) return false;
+            let containerShapes = this.nouns.get(containerName)
+            if (containerShapes == undefined) return false;
             let perspective = this.perspectives.get(nounOrPerspectiveName);
             if (perspective != undefined) {
-                if (container.containsPoint(perspective.pov)) {
-                    return true;
+                for (let container of containerShapes) {
+                    if (container.containsPoint(perspective.pov)) {
+                        return true;
+                    }
                 }
                 return false;
             }
-            let noun = this.nouns.get(nounOrPerspectiveName)
-            if (noun != undefined) {
-                if (container.containsShape(noun)) {
-                    return true;
+            let nounShapes = this.nouns.get(nounOrPerspectiveName)
+            if (nounShapes != undefined) {
+                for (let containerShape of containerShapes) {
+                    for (let nounShape of nounShapes) {
+                        if (containerShape.containsShape(nounShape)) {
+                            return true;
+                        }
+                    }
                 }
                 return false;
             }
 
             return false;
         },
-        command: function (command) {
+        i7command: function (command) {
             this.vorple.prompt.queueCommand(command);
         },
         clear: function () {

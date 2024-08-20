@@ -9,7 +9,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"update-isovist": "rm ../StatelyGardens/Isovist.materials/Extensions/Kaylah\\ Facey/Isovist.i7x && rm ../CloakOfDarkness/CloakOfDarkness.materials/Extensions/Kaylah\\ Facey/Isovist.i7x && cp ../Extensions/Kaylah\\ Facey/Isovist.i7x ../StatelyGardens/Isovist.materials/Extensions/Kaylah\\ Facey && cp ../Extensions/Kaylah\\ Facey/Isovist.i7x ../CloakOfDarkness/CloakOfDarkness.materials/Extensions/Kaylah\\ Facey",
+		"update-cloak": "rm static/CloakOfDarkness.gblorb && cp ../CloakOfDarkness/CloakOfDarkness.materials/Release/CloakOfDarkness.gblorb static/"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",

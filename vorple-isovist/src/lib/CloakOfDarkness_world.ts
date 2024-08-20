@@ -2,73 +2,89 @@ export let world = {
     "nouns": [
         {
             "name": "Foyer of the Opera House",
-            "coordinates": [40, 0],
-            "height": 10,
-            "shape": [
-                [0, 0],
-                [0, 100],
-                [100, 100],
-                [100, 0],
-                [0, 0]
+            "shapes": [
+                {
+                    "coordinates": [40, 0],
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ]
+                }
             ]
         },
         {
             "name": "Cloakroom",
-            "coordinates": [0, 30],
-            "height": 10,
-            "shape": [
-                [0, 0],
-                [0, 40],
-                [40, 40],
-                [40, 0],
-                [0, 0]
+            "shapes": [
+                {
+                    "coordinates": [0, 30],
+                    "shape": [
+                        [0, 0],
+                        [0, 40],
+                        [40, 40],
+                        [40, 0],
+                        [0, 0]
+                    ]
+                }
             ]
         },
         {
             "name": "small brass hook",
-            "coordinates": [13, 30],
-            "shape": [
-                [0, 0],
-                [0, 4],
-                [4, 4],
-                [4, 0],
-                [0, 0]
+            "shapes": [
+                {
+                    "coordinates": [13, 30],
+                    "shape": [
+                        [0, 0],
+                        [0, 4],
+                        [4, 4],
+                        [4, 0],
+                        [0, 0]
+                    ]
+                }
             ]
         },
         {
-            "name": "Bar",
-            "coordinates": [40, 100],
-            "height": 0,
-            "shape": [
-                [0, 0],
-                [0, 100],
-                [100, 100],
-                [100, 0],
-                [0, 0]
+            "name": "Foyer Bar",
+            "shapes": [
+                {
+                    "coordinates": [40, 100],
+                    "shape": [
+                        [0, 0],
+                        [0, 100],
+                        [100, 100],
+                        [100, 0],
+                        [0, 0]
+                    ]
+                }
             ]
         },
         {
-            "name": "message",
-            "coordinates": [70, 110],
-            "height": 0,
-            "shape": [
-                [0, 0],
-                [40, 0],
-                [40, 40],
-                [0, 40],
-                [0, 0]
+            "name": "scrawled message",
+            "shapes": [
+                {
+                    "coordinates": [70, 110],
+                    "shape": [
+                        [0, 0],
+                        [40, 0],
+                        [40, 40],
+                        [0, 40],
+                        [0, 0]
+                    ]
+                }
             ]
         }
     ],
     "perspectives": [
         {
-            "name": "player",
+            "name": "yourself",
             "pov": [90, 20],
             "facing": Math.PI / 2,
             "stepSize": 10,
             "regions": [
                 {
-                    "name": "front",
+                    "name": "forward",
                     "angle": 0,
                     "range": Math.PI / 4,
                     "isovist": undefined,
@@ -84,7 +100,13 @@ export let world = {
                     "angle": Math.PI / 2,
                     "range": Math.PI / 4,
                     "isovist": undefined,
-                }
+                },
+                {
+                    "name": "back",
+                    "angle": Math.PI,
+                    "range": Math.PI / 4,
+                    "isovist": undefined,
+                },
             ]
         }
     ]

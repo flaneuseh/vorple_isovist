@@ -28,27 +28,25 @@
 		switch (event.key) {
 			case 'w':
 				// @ts-ignore
-				window.isovist.stepForward('player');
+				window.isovist.i7command('geo-move geo-forward');
 				break;
 			case 'a':
 				// @ts-ignore
-				window.isovist.turnLeft('player');
+				window.isovist.i7command('geo-turn geo-left');
 				break;
 			case 's':
 				// @ts-ignore
-				window.isovist.stepBack('player');
+				window.isovist.i7command('geo-move geo-back');
 				break;
 			case 'd':
 				// @ts-ignore
-				window.isovist.turnRight('player');
+				window.isovist.i7command('geo-turn geo-right');
 				break;
 		}
-		//@ts-ignore
-		window.isovist.clear();
 		// @ts-ignore
-		window.isovist.command('isovist');
+		window.isovist.i7command('isovist');
 		// @ts-ignore
-		window.isovist.command('look');
+		window.isovist.i7command('look');
 		event.preventDefault();
 	}
 </script>
