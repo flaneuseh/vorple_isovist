@@ -285,6 +285,9 @@ export class Shape {
 
     // based on https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
     containsPoint(p) {
+        if (this.points.length == 0) {
+            return false;
+        }
         let contains = false;
         var minX = this.points[0].x, maxX = this.points[0].x;
         var minY = this.points[0].y, maxY = this.points[0].y;
@@ -338,7 +341,7 @@ export class Shape {
         this._coordinates = coordinates;
         this._points = [];
         this._segments = [];
-        if (this._coordinates == []) {
+        if (this._coordinates.length == 0) {
             return;
         }
         this._shape.forEach((currShapePoint, i) => {
@@ -496,7 +499,7 @@ export class Isovist {
         // theoretically we could do this up to N times. 
         // Now we have everything visible 
         // We can also see at what H an object is occluded should we decide to do partial visibility/track what is occluding what.
-        // But for a naive attempt, let's just find the visible and worry about the smarter descs later.
+        // But for a naive attempt, let's just find the visible and worry about the smarter descriptions later.
 
         // Sort shapes by height and capture height indices.
         // height:index of first shape at or above height
@@ -663,7 +666,14 @@ export let isovist = function (vorple, showMap = false) {
         showMap: showMap,
         loadWorld: function () {
             this.nouns = new Map(this.world.nouns.map(
-                nounJSON => [nounJSON.name, nounJSON.shapes.map(shape => new Shape(new Point(...shape.coordinates), pointsFromArray(shape.shape), shape.height))]
+                nounJSON => [nounJSON.name, nounJSON.shapes.map(shape => {
+                    let coords = nounJSON.coordinates
+                    let shapeCoords = coords
+                    if (coords.length > 0) {
+                        shapeCoords = new Point(...coords)
+                    }
+                    return new Shape(shapeCoords, pointsFromArray(shape.shape), shape.height)
+                })]
             ))
             let perspectives = this.world.perspectives;
             perspectives.forEach(p => {
@@ -726,22 +736,24 @@ export let isovist = function (vorple, showMap = false) {
             let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             map.appendChild(svg);
 
-            for (let [name, shape] of this.nouns.entries()) {
-                let polygon = document.createElementNS(svgns, "polygon")
-                if (shape.coordinates == []) {
-                    continue;
+            for (let [name, shapes] of this.nouns.entries()) {
+                for (let shape of shapes) {
+                    let polygon = document.createElementNS(svgns, "polygon")
+                    if (shape.coordinates.length == 0) {
+                        continue;
+                    }
+                    polygon.setAttribute("points", shape.toString())
+                    let polyTitle = document.createElementNS(svgns, "title")
+                    polyTitle.textContent = name
+                    polygon.appendChild(polyTitle)
+                    if (shape.visible) {
+                        polygon.setAttribute("class", "visible")
+                    }
+                    else {
+                        polygon.setAttribute("class", "invisible")
+                    }
+                    svg.appendChild(polygon)
                 }
-                polygon.setAttribute("points", shape.toString())
-                let polyTitle = document.createElementNS(svgns, "title")
-                polyTitle.textContent = name
-                polygon.appendChild(polyTitle)
-                if (shape.visible) {
-                    polygon.setAttribute("class", "visible")
-                }
-                else {
-                    polygon.setAttribute("class", "invisible")
-                }
-                svg.appendChild(polygon)
             }
             this.perspectives.forEach(p => {
                 {
@@ -777,6 +789,7 @@ export let isovist = function (vorple, showMap = false) {
         },
         getVisibility: function (perspectiveName/*: string*/, regionName/*: string*/, nounName/*: string*/)/*: boolean*/ {
             let shapes = this.nouns.get(nounName);
+            if (shapes == undefined) return false;
             let perspective = this.perspectives.get(perspectiveName)
             if (perspective == undefined) return false;
             let region = perspective.regions.get(regionName)
@@ -794,7 +807,7 @@ export let isovist = function (vorple, showMap = false) {
             if (perspective == undefined) return false;
             let pov = perspective.pov
 
-            return Math.min(shapes.map(shape => shape.minDistanceFromPoint(pov)))
+            return Math.min(...shapes.map(shape => shape.minDistanceFromPoint(pov)))
         },
         step: function (perspectiveName = "yourself", directionName = "forward", steps/*: number*/ = 1) {
             let perspective = this.perspectives.get(perspectiveName);
@@ -852,6 +865,9 @@ export let isovist = function (vorple, showMap = false) {
             elem.textContent = text;
         },
         contains: function (containerName, nounOrPerspectiveName) {
+            if (containerName == nounOrPerspectiveName) {
+                return false;
+            }
             let containerShapes = this.nouns.get(containerName)
             if (containerShapes == undefined) return false;
             let perspective = this.perspectives.get(nounOrPerspectiveName);
@@ -882,20 +898,33 @@ export let isovist = function (vorple, showMap = false) {
         },
         clear: function () {
             let outputWindow = document.getElementById("window0");
-            let child = outputWindow.lastElementChild;
-            while (child.id != "top") {
-                outputWindow.removeChild(child);
-                child = outputWindow.lastElementChild;
+            let children = outputWindow.getElementsByClassName("turn");
+            for (let child of children) {
+                outputWindow?.removeChild(child)
             }
+            return true;
         },
         take: function (perspectiveName, nounName) {
             let perspective = this.perspectives.get(perspectiveName);
             if (perspective == undefined) return false;
-            let noun = this.nouns.get(nounName);
-            if (noun == undefined) return false;
-            noun.setCoordinates([]);
+            let nounShapes = this.nouns.get(nounName);
+            if (nounShapes == undefined) return false;
+            for (let shape of nounShapes) {
+                shape.setCoordinates([]);
+            }
             this.updateVisibility(perspectiveName);
             return true;
-        }
+        },
+        drop: function (perspectiveName, nounName) {
+            let perspective = this.perspectives.get(perspectiveName);
+            if (perspective == undefined) return false;
+            let nounShapes = this.nouns.get(nounName);
+            if (nounShapes == undefined) return false;
+            for (let shape of nounShapes) {
+                shape.setCoordinates(perspective.pov);
+            }
+            this.updateVisibility(perspectiveName);
+            return true;
+        },
     }
 };

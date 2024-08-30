@@ -2,24 +2,48 @@ export let world = {
     "nouns": [
         {
             "name": "Foyer of the Opera House",
+            "coordinates": [40, 0],
             "shapes": [
                 {
-                    "coordinates": [40, 0],
                     "shape": [
                         [0, 0],
                         [0, 100],
                         [100, 100],
                         [100, 0],
-                        [0, 0]
+                        [0, 0],
                     ]
-                }
+                },
+                {
+                    "shape": [
+                        [-1, -1],
+                        [-1, 101],
+                    ]
+                },
+                {
+                    "shape": [
+                        [-1, 101],
+                        [101, 101],
+                    ]
+                },
+                {
+                    "shape": [
+                        [101, 101],
+                        [101, -1],
+                    ]
+                },
+                {
+                    "shape": [
+                        [101, -1],
+                        [-1, -1]
+                    ]
+                },
             ]
         },
         {
             "name": "Cloakroom",
+            "coordinates": [0, 30],
             "shapes": [
                 {
-                    "coordinates": [0, 30],
                     "shape": [
                         [0, 0],
                         [0, 40],
@@ -27,14 +51,38 @@ export let world = {
                         [40, 0],
                         [0, 0]
                     ]
-                }
+                },
+                {
+                    "shape": [
+                        [-1, -1],
+                        [-1, 41],
+                    ]
+                },
+                {
+                    "shape": [
+                        [-1, 41],
+                        [41, 41],
+                    ]
+                },
+                {
+                    "shape": [
+                        [41, 41],
+                        [41, -1],
+                    ]
+                },
+                {
+                    "shape": [
+                        [41, -1],
+                        [-1, -1]
+                    ]
+                },
             ]
         },
         {
             "name": "small brass hook",
+            "coordinates": [13, 30],
             "shapes": [
                 {
-                    "coordinates": [13, 30],
                     "shape": [
                         [0, 0],
                         [0, 4],
@@ -46,10 +94,25 @@ export let world = {
             ]
         },
         {
-            "name": "Foyer Bar",
+            "name": "velvet cloak",
+            "coordinates": [],
             "shapes": [
                 {
-                    "coordinates": [40, 100],
+                    "shape": [
+                        [0, 0],
+                        [0, 10],
+                        [10, 10],
+                        [10, 0],
+                        [0, 0]
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Foyer Bar",
+            "coordinates": [40, 100],
+            "shapes": [
+                {
                     "shape": [
                         [0, 0],
                         [0, 100],
@@ -57,14 +120,38 @@ export let world = {
                         [100, 0],
                         [0, 0]
                     ]
-                }
+                },
+                {
+                    "shape": [
+                        [-1, -1],
+                        [-1, 101],
+                    ]
+                },
+                {
+                    "shape": [
+                        [-1, 101],
+                        [101, 101],
+                    ]
+                },
+                {
+                    "shape": [
+                        [101, 101],
+                        [101, -1],
+                    ]
+                },
+                {
+                    "shape": [
+                        [101, -1],
+                        [-1, -1]
+                    ]
+                },
             ]
         },
         {
             "name": "scrawled message",
+            "coordinates": [70, 115],
             "shapes": [
                 {
-                    "coordinates": [70, 110],
                     "shape": [
                         [0, 0],
                         [40, 0],

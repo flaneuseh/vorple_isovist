@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { world } from '$lib/CloakOfDarkness_world';
+	import { world } from '$lib/StatelyGardens_world';
 	import { isovist } from '$lib/world';
 	import { onMount } from 'svelte';
 	import 'vorple/lib/css/vorple.css';
@@ -10,7 +10,7 @@
 			// Container for the interpreter
 			container: '#vorple',
 			// @ts-ignore
-			story: 'CloakOfDarkness.gblorb'
+			story: 'StatelyGardens.gblorb'
 		};
 		vorple.init();
 		// @ts-ignore
@@ -43,10 +43,6 @@
 				window.isovist.i7command('geo-turn geo-right');
 				break;
 		}
-		// @ts-ignore
-		window.isovist.i7command('isovist');
-		// @ts-ignore
-		window.isovist.i7command('look');
 		event.preventDefault();
 	}
 </script>
@@ -105,11 +101,11 @@
 		fill: lightblue;
 	}
 
-	:global(.isovist.front) {
+	:global(.isovist.forward) {
 		fill: green;
 	}
 
-	:global(.visTriangle.front) {
+	:global(.visTriangle.forward) {
 		fill: lightgreen;
 	}
 
